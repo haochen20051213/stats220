@@ -11,4 +11,4 @@ A little about me:
 - I always play basketball after class.
 - I think that playing basketball can exercis my body.
 
-A meme that captures how I currently feel about my university studies is ![](https://c.tenor.com/8druEACXtX8AAAAd/tenor.gif)
+A meme that captures how I currently feel about my university studies is ![](https://reiswords.wordpress.com/wp-content/uploads/2012/09/11.jpg?w=500)
