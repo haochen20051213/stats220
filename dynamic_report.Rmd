@@ -1,0 +1,77 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+@import url('https://fonts.googleapis.com/css2?family=Emblema+One&display=swap');
+body{ 
+    background-color : 	skyblue;
+    font-weight: bold;
+    font-family: 'Emblema One', cursive
+}
+h1{
+  font-family: 'Indie Flower', cursive;
+  color: green;
+}
+h2{
+  color: black;
+  font-size: 28px
+}
+```
+
+## Eating habits analysis
+Because I collected some daily eating habits of about 20 students, I mined data points from how many meals a day they eat, what the frequency of eating is related to, whether they drink milk tea, the most hated food and the most favorite food.
+
+
+```{r}
+library(tidyverse)
+logged_data <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSwrPooMDotQBIfrtSXs_q3beKf-6jrEacDnf313X8BNTtgjhXTLz-cTvqi2tl6Z9h1Ehf3EEGVTQjs/pub?gid=1553523967&single=true&output=csv")
+latest_data <- logged_data %>% 
+  rename(time = 1 ,
+         eat_times= 2,
+         reason_of_eat_frequency= 3,
+         milktea_times = 4 , 
+         most_hated = 5, 
+         favourite = 6 )
+latest_data
+
+# parts of bar charts
+# eat_times
+ggplot(data = latest_data)  + 
+  geom_bar(aes(x = eat_times),
+           fill = "skyblue") +
+  labs(titel = "How many times do you eat per day?",
+      x = "eat_times(per week)",
+      y = "count per different times")
+
+# most_hated
+ggplot(data = latest_data) + 
+  geom_bar(aes(x = most_hated),
+           fill = "turquoise") +
+  labs(title =  "What's your most hated dish?",
+       x = "the most hated food",
+       y = "count of the most hated food")
+
+total_people_answer_eat_times <- length(na.omit(latest_data$eat_times))
+total_people_answer_milktea_times <- length(na.omit(latest_data$milktea_times) )
+paste0("there are total ",total_people_answer_eat_times," classmattes answer this question How many times do you eat per day?")
+paste0("there are total ",total_people_answer_eat_times," classmattes answer this question Do you drink milk tea? If so, how many cups do you drink per week?" )
+min_ear_times <- min(latest_data$eat_times , na.rm = TRUE)
+max_ear_times <- max(latest_data$eat_times , na.rm = TRUE)
+mean_ear_times <- mean(latest_data$eat_times , na.rm = TRUE)
+round_mean_ear_times <- round(mean_ear_times , 0 )
+min_milktea_times <- min(latest_data$milktea_times , na.rm = TRUE)
+max_milktea_times <- max(latest_data$milktea_times , na.rm = TRUE)
+mean_milktea_times <- mean(latest_data$milktea_times , na.rm = TRUE)
+round_mean_milktea_times <- round(mean_milktea_times , 0 )
+paste0("according to calculating, we can know classmates eat at least ", min_ear_times, " times and eat at most ", max_ear_times, " times and eat ",round_mean_ear_times, " times on average" )
+
+paste0("according to calculating, we can know classmates drink milktea at least ", min_milktea_times, " times and drink at most ", max_milktea_times, " times and drink ",round_mean_milktea_times, " times on average" )
+
+```
